@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+        RewriteRule !\.(swf|js|ico|gif|jpg|png|css|zip|pdf|doc|txt|xml|dwg|dxf|prh)$ index.php
+</IfModule>

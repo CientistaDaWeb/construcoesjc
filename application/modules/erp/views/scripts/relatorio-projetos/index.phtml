@@ -1,0 +1,181 @@
+<h2><?php echo $this->model->getOption('title'); ?></h2>
+<div class="hidden">
+    <form method="post" id="Form_Relatorio_Contratos">
+        <table class="listagem">
+            <tr>
+                <th>Data Inicial</th>
+                <th><input type="text" name="data_inicial" value="<?php echo $this->data['data_inicial']; ?>" class="filter date" /></th>
+                <th>Data Final</th>
+                <th><input type="text" name="data_final" value="<?php echo $this->data['data_final']; ?>" class="filter date" /></th>
+                <th rowspan="6"><button type="submit">Filtrar</button></th>
+                <th rowspan="6"><button type="button" id="btImprimir">Imprimir</button></th>
+            </tr>
+            <tr>
+                <th>Usuário</th>
+                <th colspan="3"><select name="usuario_id">
+                        <option value="">Todos</option>
+                        <?php
+                        $UsuariosModel = new Usuarios_Model();
+                        foreach ($UsuariosModel->fetchPair() AS $id => $nome):
+                            ?>
+                            <option value="<?php echo $id; ?>" <?php echo ($this->data['usuario_id'] == $id) ? 'selected="selected"' : ''; ?>><?php echo $nome; ?></option>
+                        <?php endforeach; ?>
+                    </select></th>
+            </tr>
+            <tr>
+                <th>Projeto</th>
+                <th colspan="3"><select name="projeto_id">
+                        <option value="">Todos</option>
+                        <?php
+                        $ProjetosModel = new Projetos_Model();
+                        foreach ($ProjetosModel->fetchPair() AS $id => $nome):
+                            ?>
+                            <option value="<?php echo $id; ?>" <?php echo ($this->data['projeto_id'] == $id) ? 'selected="selected"' : ''; ?>><?php echo $nome; ?></option>
+                        <?php endforeach; ?>
+                    </select></th>
+            </tr>
+            <tr>
+                <th>Construtora</th>
+                <th colspan="3"><select name="construtora_id">
+                        <option value="">Todas</option>
+                        <?php
+                        $ConstrutorasModel = new Construtoras_Model();
+                        foreach ($ConstrutorasModel->fetchPair() AS $id => $nome):
+                            ?>
+                            <option value="<?php echo $id; ?>" <?php echo ($this->data['construtora_id'] == $id) ? 'selected="selected"' : ''; ?>><?php echo $nome; ?></option>
+                        <?php endforeach; ?>
+                    </select></th>
+            </tr>
+            <tr>
+                <th>Arquiteto</th>
+                <th colspan="3"><select name="arquiteto_id">
+                        <option value="">Todos</option>
+                        <?php
+                        $ArquitetosModel = new Arquitetos_Model();
+                        foreach ($ArquitetosModel->fetchPair() AS $id => $nome):
+                            ?>
+                            <option value="<?php echo $id; ?>" <?php echo ($this->data['arquiteto_id'] == $id) ? 'selected="selected"' : ''; ?>><?php echo $nome; ?></option>
+                        <?php endforeach; ?>
+                    </select></th>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="margem-t clear"></div>
+<?php if (!empty($this->items)): ?>
+    <h3>PPPCI</h3>
+    <?php if (!empty($this->ppcis)): ?>
+        <table class="listagem">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Projeto</th>
+                    <th>Funcionário</th>
+                    <th>Data</th>
+                    <th>Horas</th>
+                    <th>Descrição</th>
+                    <th>Arquivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $ProjetosPpciModel = new ProjetosPpci_Model();
+                $i = 0;
+                $total['horas'] = 0;
+                foreach ($this->ppcis AS $item):
+                    $item = $ProjetosPpciModel->adjustToView($item);
+                    $total['horas'] += $item['horas'];
+                    $i++;
+                    ?>
+                    <tr>
+                        <td align="center"><?php echo $i; ?></td>
+                        <td><?php echo $item['projeto']; ?></td>
+                        <td><?php echo $item['usuario']; ?></td>
+                        <td align="center"><?php echo $item['data']; ?></td>
+                        <td align="center"><?php echo $item['horas']; ?></td>
+                        <td><?php echo $item['descricao']; ?></td>
+                        <td align="center">
+                            <?php if (!empty($item['arquivo'])): ?>
+                                <a href="/uploads/projetos-alteracoes/<?php echo $item['arquivo']; ?>" class="botao" title="<?php echo $item['arquivo']; ?>" target="_blank">Baixar</a>
+                            <?php else: ?>
+                                <div class="error">Nenhum arquivo enviado!</div>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4">Total</th>
+                    <td align="center"><?php echo $total['horas']; ?></td>
+                    <td colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    <?php else: ?>
+        <div class="empty">
+            Nenhum dado filtrado
+        </div>
+    <?php endif; ?>
+    <div class="margem-t clear"></div>
+    <h3>Hidros</h3>
+    <?php if (!empty($this->hidros)): ?>
+        <table class="listagem">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Projeto</th>
+                    <th>Funcionário</th>
+                    <th>Data</th>
+                    <th>Horas</th>
+                    <th>Descrição</th>
+                    <th>Arquivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $ProjetosHidroModel = new ProjetosHidro_Model();
+                $i = 0;
+                $total['horas'] = 0;
+                foreach ($this->hidros AS $item):
+                    $item = $ProjetosHidroModel->adjustToView($item);
+                    $total['horas'] += $item['horas'];
+                    $i++;
+                    ?>
+                    <tr>
+                        <td align="center"><?php echo $i; ?></td>
+                        <td><?php echo $item['projeto']; ?></td>
+                        <td><?php echo $item['usuario']; ?></td>
+                        <td align="center"><?php echo $item['data']; ?></td>
+                        <td align="center"><?php echo $item['horas']; ?></td>
+                        <td><?php echo $item['descricao']; ?></td>
+                        <td align="center">
+                            <?php if (!empty($item['arquivo'])): ?>
+                                <a href="/uploads/projetos-alteracoes/<?php echo $item['arquivo']; ?>" class="botao" title="<?php echo $item['arquivo']; ?>" target="_blank">Baixar</a>
+                            <?php else: ?>
+                                <div class="error">Nenhum arquivo enviado!</div>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4">Total</th>
+                    <td align="center"><?php echo $total['horas']; ?></td>
+                    <td colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    <?php else: ?>
+        <div class="empty">
+            Nenhum dado filtrado
+        </div>
+    <?php
+    endif;
+else:
+    ?>
+    <div class="empty">
+        Nenhum dado filtrado
+    </div>
+<?php endif; ?>

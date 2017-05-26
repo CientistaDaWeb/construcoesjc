@@ -1,0 +1,80 @@
+<h2><?php echo $this->model->getOption('title'); ?></h2>
+<div class="hidden">
+    <form method="post" id="Form_Relatorio_Funcionarios">
+        <table class="listagem">
+            <tr>
+                <th>Admissão - Data Inicial</th>
+                <th><input type="text" name="admissao_data_inicial" value="<?php echo $this->data['admissao_data_inicial']; ?>" class="filter date" /></th>
+                <th>Admissão - Data Final</th>
+                <th><input type="text" name="admissao_data_final" value="<?php echo $this->data['admissao_data_final']; ?>" class="filter date" /></th>
+                <th rowspan="3">
+                    <button type="submit">Filtrar</button><br /><br />
+                    <button type="button" id="btImprimir">Imprimir</button>
+                </th>
+            </tr>
+            <tr>
+                <th>Demissão - Data Inicial</th>
+                <th><input type="text" name="demissao_data_inicial" value="<?php echo $this->data['demissao_data_inicial']; ?>" class="filter date" /></th>
+                <th>Demissão - Data Final</th>
+                <th><input type="text" name="demissao_data_final" value="<?php echo $this->data['demissao_data_final']; ?>" class="filter date" /></th>
+            </tr>
+            <tr>
+                <th>Ativo</th>
+                <th colspan="3"><select name="ativo">
+                        <option value="">Todos</option>
+                        <?php
+                        $ativo = $this->model->listOptions('ativo');
+                        foreach ($ativo AS $key => $value):
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo ($this->data['ativo'] == $key) ? 'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                        <?php endforeach; ?>
+                    </select></th>
+            </tr>
+        </table>
+    </form>
+</div>
+<?php if (!empty($this->items)): ?>
+    <div class="print">
+        <table class="listagem">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>PIS</th>
+                    <th>CTPS</th>
+                    <th>Data de Admissão</th>
+                    <th>Data de Demissão</th>
+                    <th>Ativo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->items AS $item):
+                    $item = $this->model->adjustToView($item);
+                    ?>
+                    <tr>
+                        <td><?php echo $item['numero_registro']; ?></td>
+                        <td><?php echo $item['nome']; ?></td>
+                        <td><?php echo $item['cargo']; ?></td>
+                        <td align="center"><?php echo $item['cpf']; ?></td>
+                        <td align="center"><?php echo $item['rg']; ?></td>
+                        <td align="center"><?php echo $item['pis']; ?></td>
+                        <td align="center"><?php echo $item['ctps']; ?></td>
+                        <td align="center"><?php echo $item['data_admissao']; ?></td>
+                        <td align="center"><?php echo(isset($item['data_demissao'])) ? $item['data_demissao'] : ' - '; ?></td>
+                        <td align="center"><?php echo $item['ativo']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+else:
+    ?>
+    <div class="empty">
+        Nenhum dado filtrado
+    </div>
+<?php endif; ?>

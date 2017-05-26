@@ -1,0 +1,81 @@
+<?php
+if (!empty($this->parcelas)):
+    ?>
+    <form id="<?php echo $this->controller; ?>GerarParcelasForm">
+        <input type="hidden" id="orcamento_id" name="orcamento_id" value="<?php echo $this->data['orcamento_id']; ?>" />
+        <table class="listagem">
+            <tbody>
+                <tr>
+                    <th>Empresa</th>
+                    <td><select name="empresa_id">
+                            <?php foreach (Empresas_Model::fetchPair() AS $id => $empresa):
+                                ?>
+                                <option value="<?php echo $id; ?>"><?php echo $empresa; ?></option>
+                            <?php endforeach; ?>
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Forma de Pagamento</th>
+                    <td><select name="forma_pagamento_id">
+                            <?php foreach (FormasPagamento_Model::fetchPair() AS $id => $forma):
+                                ?>
+                                <option value="<?php echo $id; ?>"><?php echo $forma; ?></option>
+                            <?php endforeach; ?>
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Endereço</th>
+                    <td><select name="endereco_id">
+                            <?php foreach (ClientesEnderecos_Model::fetchPair(NULL, $this->data['orcamento_id']) AS $id => $endereco):
+                                ?>
+                                <option value="<?php echo $id; ?>"><?php echo $endereco; ?></option>
+                            <?php endforeach; ?>
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Descrição</th>
+                    <td><input type="text" name="descricao" id="descricao" /></td>
+                </tr>
+                <tr>
+                    <th>Observações</th>
+                    <td><textarea type="text" name="observacoes" id="observacoes"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Parcelas</h3>
+        <table class="listagem">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Valor Retido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $i = 1;
+                foreach ($this->parcelas AS $parcela):
+                    ?>
+                    <tr>
+                        <td class="valor"><input type="text" name="parcela[<?php echo $i; ?>][data_vencimento]" class="filter date" value="<?php echo $parcela['data']; ?>" /></td>
+                        <td class="valor"><input type="text" name="parcela[<?php echo $i; ?>][valor]" class="filter money" value="<?php echo WS_Money::adjustToDb($parcela['valor']); ?>" /></td>
+                        <td class="valor"><input type="text" name="parcela[<?php echo $i; ?>][valor_retido]" class="filter money" value="" /></td>
+                    </tr>
+                    <?php
+                    $i++;
+                endforeach;
+                ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <th><button type="submit" class="btEnviar">Salvar</button></th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+<?php else: ?>
+    <div class="error">
+        Não foi possível gerar as parcelas!
+    </div>
+<?php endif; ?>

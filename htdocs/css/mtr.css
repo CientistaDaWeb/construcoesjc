@@ -1,0 +1,165 @@
+#logo{
+    display: none;
+}
+.folha{
+    width: 21.4cm;
+    display: inline-block;
+    overflow: hidden;
+    padding-left: 0.2cm;
+    line-height: 0.6cm;
+    font-size: 14px;
+}
+.campo{
+    overflow: hidden;
+}
+.box{
+    clear: both;
+    display: block;
+    overflow: hidden;
+}
+#box_gerador{
+    margin-top: 3.5cm;
+}
+#gerador_razao_social{
+    margin-left: 2.1cm;
+    width: 10.7cm;
+}
+#gerador_lo{
+    margin-left: 2cm;
+    width: 5cm;
+}
+#gerador_endereco{
+    margin-left: 1.7cm;
+    width: 11.2cm;
+}
+#gerador_municipio{
+    margin-left: 1.4cm;
+    width: 5.3cm;
+}
+#gerador_responsavel{
+    margin-left: 3.2cm;
+    width: 9.7cm;
+    display: block;
+}
+#gerador_telefone{
+    margin-left: 1.4cm;
+    width: 5.3cm;
+}
+#box_residuos{
+    margin-top: 1.4cm;
+    height: 2cm;
+    overflow: hidden;
+}
+#box_residuos table{
+    border-collapse: colapse;
+}
+#box_residuos td{
+    text-align: center;
+    vertical-align: top;
+    margin: 0 0.02cm;
+}
+#box_residuos .fonte{
+    width: 1.8cm
+}
+#box_residuos .descricao{
+    width: 8.2cm;
+}
+#box_residuos .td{
+    width: 1.6cm;
+}
+#box_transportador{
+    margin-top: 0.7cm;
+    margin-left: 0.5cm
+}
+#box_transportador .campo{
+    margin-top: 0.25cm;
+}
+#transportador_razao_social{
+    width: 10.3cm;
+}
+#transportador_endereco{
+    width: 9.5cm;
+}
+#transportador_municipio{
+    width: 6.8cm;
+}
+#transportador_fone{
+    width: 3.5cm;
+}
+#transportador_equipamento{
+    width: 9.5cm;
+}
+#transportador_condutor{
+    width: 10.3cm;
+}
+#transportador_lo{
+    width: 9.5cm;
+}
+#transportador_lacre{
+    width: 5.1cm;
+}
+#transportador_veiculo{
+    width: 5.1cm;
+}
+#transportador_placa{
+    width: 5.1cm;
+}
+#transportador_estado{
+    width: 5.1cm;
+}
+#box_destinatario{
+    margin-top: 0.9cm;
+    margin-left: 0.5cm
+}
+#box_destinatario .campo{
+    margin-bottom: 0.1cm;
+}
+#destinatario_razao_social{
+    width: 12.1cm;
+}
+#destinatario_lo{
+    width: 7.7cm;
+}
+#destinatario_endereco{
+    width: 12.1cm;
+}
+#destinatario_fone{
+    width: 7.7cm;
+}
+#destinatario_motivo{
+    width: 12.1cm;
+}
+#destinatario_responsavel{
+    width: 7.7cm;
+}
+#box_descricao{
+    height: 1.1cm;
+    margin-top: 0.8cm;
+    margin-left: 0.5cm;
+}
+#box_instrucoes{
+    height: 1.1cm;
+    margin-top: 1cm;
+    margin-left: 0.5cm;
+    WIDTH: 90%;
+}
+#box_responsavel{
+    margin-top: 1.7cm;
+}
+#box_responsavel .campo{
+    width: 7.5cm;
+    margin-right: 11cm;
+    margin-left: 1.3cm;
+    margin-top: 0.5cm;
+}
+#box_discrepancia{
+    margin-top: 0.8cm;
+    margin-left: 0.5cm;
+    height: 1.1cm;
+}
+#box_instalacao{
+    margin-top: 0.7cm;
+}
+#instalacao_nome{
+    margin-left: 0.5cm;
+}

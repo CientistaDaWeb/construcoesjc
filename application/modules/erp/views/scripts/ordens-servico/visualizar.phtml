@@ -1,0 +1,87 @@
+<?php
+if (!($this->noLayout)):
+    echo $this->partial('partials/title.phtml', array(
+        'title' => $this->model->getOption('title')
+    ));
+endif;
+if (!empty($this->ordemServico)):
+    $ZD = new Zend_Date($this->ordemServico['data']);
+    ?>
+    <div class="hidden">
+        <button type="button" id="btImprimir">
+            Imprimir
+        </button>
+    </div>
+    <div class="float left">
+        <p><b><?php echo $this->ordemServico['empresa']; ?></b></p>
+        <p><?php echo $this->ordemServico['endereco']; ?>, <?php echo $this->ordemServico['numero']; ?> <?php echo $this->ordemServico['complemento']; ?> - <?php echo $this->ordemServico['bairro']; ?></p>
+        <p><?php echo $this->ordemServico['cep']; ?> <?php echo $this->ordemServico['cidade']; ?> - <?php echo $this->ordemServico['uf']; ?></p>
+        <p>Fone: <?php echo $this->ordemServico['telefone']; ?><?php if (!empty($this->ordemServico['telefone2'])): echo ' | ' . $this->ordemServico['telefone2'];
+    endif; ?><?php if (!empty($this->ordemServico['telefone3'])): echo ' | ' . $this->ordemServico['telefone3'];
+        endif; ?></p>
+        <p>E-mail: <?php echo $this->ordemServico['email']; ?> - <?php echo $this->ordemServico['email2']; ?></p>
+        <p><?php echo $this->ordemServico['website']; ?></p>
+    </div>
+    <p class="float right">
+        <b>Ordem de Serviço nº <?php echo $this->ordemServico['orcamento_id']; ?>.<?php echo $this->ordemServico['sequencial']; ?><br />
+            Data do Trabalho: <?php echo $ZD->toString('dd/MM/YYYY'); ?></b>
+    </p>
+    <hr class="clear" />
+    <p><b>Cliente: <?php echo $this->ordemServico['cliente']; ?></b></p>
+    <p>Contato: <?php echo $this->ordemServico['contato']; ?></p>
+    <?php if (!empty($this->ordemServico['sindico'])): ?>
+        <p>Síndico: <?php echo $this->ordemServico['sindico']; ?></p>
+    <?php endif; ?>
+    <?php if (!empty($this->ordemServico['zelador'])): ?>
+        <p>Zelador: <?php echo $this->ordemServico['zelador']; ?></p>
+    <?php endif; ?>
+    <?php
+    if (!empty($this->enderecos)):
+        foreach ($this->enderecos AS $endereco):
+            ?>
+            <br />
+            <p><?php echo $endereco['endereco']; ?>, <?php echo $endereco['numero']; ?> <?php echo $endereco['complemento']; ?> - <?php echo $endereco['bairro']; ?></p>
+            <p><?php echo $endereco['cep']; ?> <?php echo $endereco['cidade']; ?> - <?php echo $endereco['uf']; ?></p>
+            <?php
+        endforeach;
+    endif;
+    ?>
+    <p>Fone:
+        <?php
+        if (!empty($this->telefones)):
+            foreach ($this->telefones AS $telefone):
+                echo $telefone['categoria'] . ' - ' . $telefone['telefone'] . '<br />';
+            endforeach;
+        endif;
+        ?></p>
+    <hr class="clear" />
+    <?php if (!empty($this->servicos)): ?>
+        <table class="listagem margemB">
+            <tr>
+                <th>Código</th>
+                <th>Serviço</th>
+                <th>Quantidade</th>
+            </tr>
+            <?php foreach ($this->servicos AS $servico): ?>
+                <tr>
+                    <td><?php echo $servico['id']; ?></td>
+                    <td><?php echo $servico['servico']; ?></td>
+                    <td align="right"><?php echo $servico['qtde']; ?> <?php echo $servico['unidade']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+    <br />
+    <p>Valor Total: <?php echo WS_Money::adjustToView($this->ordemServico['valor']);?></p>
+    <br />
+    <table class="listagem">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Assinatura do Cliente</th>
+            </tr>
+        </thead>
+    </table>
+    <br />
+    <p><b>Observações:</b><?php echo nl2br($this->ordemServico['observacoes']); ?></p>
+<?php endif; ?>

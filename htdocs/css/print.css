@@ -1,0 +1,14 @@
+.hidden, #ZFDebug{
+    display: none;
+}
+.breakline{
+    page-break-before: always;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table td, table th{
+    border: 1px solid #CCC;
+    padding: 5px;
+}

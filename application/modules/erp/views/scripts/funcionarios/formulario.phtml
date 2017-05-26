@@ -1,0 +1,36 @@
+<?php
+if (!isset($this->noLayout)):
+    echo $this->partial('partials/title.phtml', array(
+        'title' => $this->model->getOption('title')
+    ));
+endif;
+?>
+<div id="<?php echo $this->controller;?>Tabs">
+    <ul>
+        <li><a href="#Dados">Dados</a></li>
+        <li><a href="/<?php echo $this->module; ?>/submodulo/Pontos/funcionario//<?php echo $this->data['id']; ?>">Ponto</a></li>
+        <li><a href="/<?php echo $this->module; ?>/submodulo/Consultas/funcionario//<?php echo $this->data['id']; ?>">Consultas</a></li>
+    </ul>
+    <div id="Dados">
+        <div class="grid_12">
+            <?php echo $this->form; ?>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $("#<?php echo $this->controller;?>Tabs").tabs({
+            spinner: carregando,
+            ajaxOptions: {
+                error: function(xhr, status,index, anchor){
+                    if(status == 'error'){
+                        $(anchor.hash).html('Erro ao carregar o conteúdo');
+                    }else{
+                        $(anchor.hash).html(carregando);
+                    }
+                }
+            }
+<?php echo (empty($this->data['id'])) ? ', disabled: [1, 2]' : ''; ?>
+        });
+    });
+</script>
